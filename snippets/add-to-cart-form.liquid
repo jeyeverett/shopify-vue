@@ -1,22 +1,8 @@
-<form
-  action="/cart/add"
-  method="post"
-  enctype="multipart/form-data"
-  id="add-to-cart-form"
->
-  <select name="id" id="productSelect">
-    {% for variant in product.variants %} {% if variant.available %}
-    <option value="{{ variant.id }}">
-      {{ variant.title }} - {{ variant.price | money_with_currency }}
-    </option>
-    {% else %}
-    <option disabled="disabled">{{ variant.title }} - sold out</option>
-    {% endif %} {% endfor %}
-  </select>
-  {{ current_variant.price | money }}
-  <label for="Quantity">quantity</label>
-  <input type="number" id="Quantity" name="quantity" value="1" min="1" />
-  <button @click="addToCart" type="submit" name="add" id="AddToCart">
+<form id="add-to-cart-form">
+  <template v-for="(option, optionIndex) in form.options" :key="option.name">
+    <div>{% render 'product-select-option' %}</div>
+  </template>
+  <button @click="addToCart" name="add" id="add-to-cart-button">
     Add to cart
   </button>
 </form>
@@ -28,20 +14,50 @@
       data(event) {
         return {
           variantId: "",
+          variantsMap: {}, //map variant title to variant id
+          selected: {},
+          form: {
+            selections: {},
+            options: [],
+          },
+          open: false,
         };
       },
       created() {
         this.getProductData().then((data) => {
-          this.variantId = data.variants[0].id;
+          //map option to variant id
+          data.variants.map(
+            (variant) => (this.variantsMap[variant.title] = variant.id)
+          );
+          //map product options to form
+          this.form.options = data.options.map((option) => ({
+            ...option,
+            visible: false,
+          }));
+          //set default selection for select element and form (max three options by default for Shopify)
+          data.options.map(
+            (option) => (this.selected[option.name] = option.values[0])
+          );
+          this.form.selections = { ...this.selected };
+          console.log(this.form);
         });
       },
       methods: {
         async addToCart(event) {
           event.preventDefault();
+
+          //generate the variant title for lookup in the variantsMap
+          const variantTitle = Object.values(this.form.selections).reduce(
+            (acc, selection) => acc + " / " + selection
+          );
+
+          const variantId = this.variantsMap[variantTitle];
+
           const data = {
-            id: this.variantId,
+            id: variantId,
             quantity: 1,
           };
+
           try {
             const response = await fetch("/cart/add.js", {
               method: "POST",
@@ -63,6 +79,14 @@
           } catch (err) {
             console.log(err);
           }
+        },
+        toggleOptionsList(option) {
+          option.visible = !option.visible;
+        },
+        updateSelections(option, value) {
+          this.selected[option.name] = value;
+          this.form.selections[option.name] = value;
+          option.visible = false;
         },
       },
     }).mount("#add-to-cart-form");
