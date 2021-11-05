@@ -2,7 +2,7 @@
   action="/cart/add"
   method="post"
   enctype="multipart/form-data"
-  id="AddToCartForm"
+  id="add-to-cart-form"
 >
   <select name="id" id="productSelect">
     {% for variant in product.variants %} {% if variant.available %}
@@ -17,4 +17,18 @@
   <label for="Quantity">quantity</label>
   <input type="number" id="Quantity" name="quantity" value="1" min="1" />
   <button type="submit" name="add" id="AddToCart">Add to cart</button>
+  ${test}
 </form>
+
+<script>
+  if (document.querySelector("#add-to-cart-form")) {
+    const productForm = Vue.createApp({
+      delimiters: ["${", "}"],
+      data() {
+        return {
+          test: "test",
+        };
+      },
+    }).mount("#add-to-cart-form");
+  }
+</script>
