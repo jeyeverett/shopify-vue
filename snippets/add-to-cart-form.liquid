@@ -16,18 +16,54 @@
   {{ current_variant.price | money }}
   <label for="Quantity">quantity</label>
   <input type="number" id="Quantity" name="quantity" value="1" min="1" />
-  <button type="submit" name="add" id="AddToCart">Add to cart</button>
-  ${test}
+  <button @click="addToCart" type="submit" name="add" id="AddToCart">
+    Add to cart
+  </button>
 </form>
 
 <script>
   if (document.querySelector("#add-to-cart-form")) {
     const productForm = Vue.createApp({
       delimiters: ["${", "}"],
-      data() {
+      data(event) {
         return {
-          test: "test",
+          variantId: "",
         };
+      },
+      created() {
+        this.getProductData().then((data) => {
+          this.variantId = data.variants[0].id;
+        });
+      },
+      methods: {
+        async addToCart(event) {
+          event.preventDefault();
+          const data = {
+            id: this.variantId,
+            quantity: 1,
+          };
+          try {
+            const response = await fetch("/cart/add.js", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
+            });
+            console.log(await response.json());
+          } catch (err) {
+            console.log(err);
+          }
+        },
+        async getProductData() {
+          try {
+            const response = await fetch("/products/{{ product.handle }}.js");
+            const data = await response.json();
+            return data;
+          } catch (err) {
+            console.log(err);
+          }
+        },
       },
     }).mount("#add-to-cart-form");
   }
