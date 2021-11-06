@@ -1,8 +1,55 @@
-    <div>
-      <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
-      {{ product.price | money }}
-      {% unless product.available %}<br><strong>sold out</strong>{% endunless %}
-      <a href="{{ product.url | within: collection }}">
-        <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}">
-      </a>
+<div>
+  <a href="{{ product.url | within: collection }}">
+    <div class="swiper swiper-{{- product.id -}}">
+      <div class="swiper-wrapper">
+        {% for image in product.images %}
+        <div class="swiper-slide">
+          <img
+            src="{{ image.src | img_url: 'master' }}"
+            alt="{{ image.alt | escape }}"
+            class="swiper-image-{{- image.id -}}"
+          />
+        </div>
+        {% endfor %}
+      </div>
+      <div
+        class="swiper-button-next swiper-button-next-{{- product.id -}}"
+      ></div>
+      <div
+        class="swiper-button-prev swiper-button-prev-{{- product.id -}}"
+      ></div>
     </div>
+  </a>
+
+  <a href="{{ product.url | within: collection }}">
+    <h3>{{ product.title | upcase }}</h3>
+    <p>{{ product.price | money }}</p>
+    <p>
+      {% for size_option in product.options_by_name['Size'].values %}
+      {{ size_option }}{% unless forloop.last %},{% endunless %} {% endfor %}
+    </p>
+    <button>
+      <span></span>
+    </button>
+  </a>
+</div>
+
+<script>
+  new Swiper(".swiper-{{- product.id -}}", {
+    slidesPerView: 1,
+    centeredSlides: true,
+    spaceBetween: 0,
+    loop: true,
+
+    breakpoints: {
+      600: {
+        allowTouchMove: false,
+        speed: 0,
+        navigation: {
+          nextEl: ".swiper-button-next-{{- product.id -}}",
+          prevEl: ".swiper-button-prev-{{- product.id -}}",
+        },
+      },
+    },
+  });
+</script>

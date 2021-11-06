@@ -1,8 +1,26 @@
-<div class="container">
+<div class="mx-auto">
   <div class="collection">
-    <h1 class="collection-title">{{ collection.title }}</h1>
-    <div class="collection-list">
-      {% render 'product-card' for collection.products as product %}
+    <h1 class="text-2xl font-semibold">
+      {{ collection.title }}
+    </h1>
+    <div
+      class="
+        mx-auto
+        mt-5
+        sm:mt-10
+        px-12
+        sm:px-32
+        md:px-40
+        grid grid-cols-1
+        md:grid-cols-2
+        lg:grid-cols-3
+        gap-5
+      "
+    >
+      <!-- prettier-ignore -->
+      {% for product in collection.products %} 
+        {% render 'product-card', product: product  %} 
+      {% endfor %}
     </div>
   </div>
 </div>
