@@ -1,6 +1,6 @@
 <div>
   <a href="{{ product.url | within: collection }}">
-    <div class="swiper swiper-{{- product.id -}}">
+    <div class="relative swiper swiper-{{- product.id -}}">
       <div class="swiper-wrapper">
         {% for image in product.images %}
         <div class="swiper-slide">
@@ -13,10 +13,10 @@
         {% endfor %}
       </div>
       <div
-        class="swiper-button-next swiper-button-next-{{- product.id -}}"
+        class="absolute top-0 right-0 w-1/4 h-full mt-0 outline-none shadow-none border-transparent text-gray-400 hover:text-gray-700 transition-colors swiper-button-next swiper-button-next-{{- product.id -}}"
       ></div>
       <div
-        class="swiper-button-prev swiper-button-prev-{{- product.id -}}"
+        class="absolute top-0 left-0 w-1/4 h-full mt-0 outline-none shadow-none border-transparent text-gray-400 hover:text-gray-700 transition-colors swiper-button-prev swiper-button-prev-{{- product.id -}}"
       ></div>
     </div>
   </a>
@@ -29,7 +29,7 @@
       {{ size_option }}{% unless forloop.last %},{% endunless %} {% endfor %}
     </p>
     <button>
-      <span></span>
+      <span>Add to cart</span>
     </button>
   </a>
 </div>

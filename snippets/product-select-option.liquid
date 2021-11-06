@@ -1,16 +1,11 @@
-<div class="relative select-none">
-  <div
-    class="product-option-label"
-    @click="toggleOptionsList(option)"
-    :class="{ labelActive: option.visible }"
-  >
-    ${option.name} <span>${selected[option.name]}</span>
-  </div>
-  <div class="product-option-list" v-show="option.visible">
-    <template v-for="(value, index) in option.values" :key="value">
-      <div class="product-option-item" @click="updateSelections(option, value)">
-        ${value}
-      </div>
-    </template>
+<div
+  @click="toggleOptionsList(option)"
+  :class="{ labelActive: option.visible }"
+>
+  ${option.name} <span>${form.selected[option.name]}</span>
+</div>
+<div v-show="option.visible">
+  <div v-for="(value, index) in option.values" :key="value" @click="updateSelections(option, value)">
+    ${value}
   </div>
 </div>
