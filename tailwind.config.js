@@ -1,10 +1,8 @@
 module.exports = {
-  purge: [
-    "./templates/**/*.liquid",
-    "./snippets/**/*.liquid",
-    "./sections/**/*.liquid",
-    "./layout/**/*.liquid",
-  ],
+  purge: {
+    enabled: true,
+    content: ["./**/*.liquid", "./css/*.css"],
+  },
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {},

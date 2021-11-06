@@ -127,7 +127,7 @@
     "util-deprecate": "^1.0.2"
   },
   "scripts": {
-    "css": "npx tailwindcss -i ./css/tailwind.css -o ./assets/tailwind.css.liquid --watch"
+    "css": "npx tailwindcss -i ./css/tailwind.css -c ./tailwind.config.js -o ./assets/tailwind.css.liquid --watch"
   },
   "repository": {
     "type": "git",
