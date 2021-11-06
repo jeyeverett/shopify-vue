@@ -16,6 +16,9 @@
     <script src="https://unpkg.com/vue@next"></script>
     <!-- Header hook for plugins -->
     {{
+      "tailwind.css" | asset_url | stylesheet_tag
+    }}
+    {{
       "application.css" | asset_url | stylesheet_tag
     }}
     {{
