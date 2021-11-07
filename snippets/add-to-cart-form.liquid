@@ -1,8 +1,27 @@
 <form id="add-to-cart-form">
-  <div v-for="(option, optionIndex) in form.options" :key="option.name">
+  <ul
+    v-for="(option, optionIndex) in form.options"
+    :key="option.name"
+    class="
+      my-2
+      w-full
+      px-4
+      py-2
+      border border-gray-700
+      bg-white
+      hover:bg-gray-200
+      cursor-pointer
+      relative
+    "
+  >
     {% render 'product-select-option' %}
-  </div>
-  <button @click="addToCart" name="add" id="add-to-cart-button">
+  </ul>
+  <button
+    @click="addToCart"
+    name="add"
+    id="add-to-cart-button"
+    class="w-full px-4 py-2 border border-gray-700 bg-white hover:bg-gray-200"
+  >
     Add to cart
   </button>
 </form>
@@ -33,23 +52,25 @@
               visible: false,
             });
             // sets the default selected option for each option
-            this.form.selected[option.name] = option.values[0]
+            this.form.selected[option.name] = option.values[0];
           });
         });
+      },
+      computed: {
+        variantId() {
+          //generate the variant title for lookup in the variantsMap
+          const variantTitle = Object.values(this.form.selected).reduce(
+            (acc, selection) => acc + " / " + selection
+          );
+          return this.variantsMap[variantTitle];
+        },
       },
       methods: {
         async addToCart(event) {
           event.preventDefault();
 
-          //generate the variant title for lookup in the variantsMap
-          const variantTitle = Object.values(this.form.selected).reduce(
-            (acc, selection) => acc + " / " + selection
-          );
-
-          const variantId = this.variantsMap[variantTitle];
-
           const data = {
-            id: variantId,
+            id: this.variantId,
             quantity: 1,
           };
 
@@ -61,7 +82,6 @@
               },
               body: JSON.stringify(data),
             });
-            console.log(await response.json());
           } catch (err) {
             console.log(err);
           }
@@ -69,8 +89,7 @@
         async getProductData() {
           try {
             const response = await fetch("/products/{{ product.handle }}.js");
-            const data = await response.json();
-            return data;
+            return await response.json();
           } catch (err) {
             console.log(err);
           }
@@ -78,7 +97,7 @@
         toggleOptionsList(option) {
           option.visible = !option.visible;
         },
-        updateSelections(option, value) {
+        updateSelected(option, value) {
           this.form.selected[option.name] = value;
           option.visible = false;
         },

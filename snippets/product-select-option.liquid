@@ -1,11 +1,25 @@
-<div
+<li
   @click="toggleOptionsList(option)"
-  :class="{ labelActive: option.visible }"
+  :class="['text-center relative', { 'bg-gray-200': option.visible }]"
 >
-  ${option.name} <span>${form.selected[option.name]}</span>
-</div>
-<div v-show="option.visible">
-  <div v-for="(value, index) in option.values" :key="value" @click="updateSelections(option, value)">
+  <span class="absolute left-0">${option.name}</span
+  >${form.selected[option.name]}
+</li>
+<ul v-show="option.visible" class="absolute left-0 bottom-full w-full">
+  <li
+    v-for="(value, index) in option.values"
+    :key="value"
+    @click="updateSelected(option, value)"
+    class="
+      w-full
+      px-4
+      py-2
+      border border-gray-700
+      bg-white
+      hover:bg-gray-200
+      cursor-pointer
+    "
+  >
     ${value}
-  </div>
-</div>
+  </li>
+</ul>
