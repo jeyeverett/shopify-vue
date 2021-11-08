@@ -27,23 +27,23 @@
 
   <ul>
     {% for link in linklists.main-footer.links %} 
-    <li class="font-medium my-2">
+    <li class="text-gray-400 font-medium my-2">
         {% assign child_list_handle = link.title | handleize %} 
           {% if linklists[child_list_handle].links != blank %}
             <a 
               href="{{ link.url }}" 
-              class="pb-1 border-b-2 border-white hover:border-gray-700 transition-all">
+              class="pb-1 border-b-2 border-white hover:border-gray-400 transition-all">
                 {{ link.title }}
             </a>
             [{% for childlink in linklists[child_list_handle].links %}
                 <a 
                   href="{{ childlink.url }}" 
-                  class="pb-1 border-b-2 border-white hover:border-gray-700 transition-all">
+                  class="pb-1 border-b-2 border-white hover:border-gray-400 transition-all">
                     {{ childlink.title | escape }}
                 </a>
             {% endfor %}] 
           {% else %}
-            <a href="{{ link.url }}" class="pb-1 border-b-2 border-white hover:border-gray-700 transition-all">
+            <a href="{{ link.url }}" class="pb-1 border-b-2 border-white hover:border-gray-400 transition-all">
                 {{ link.title }}
             </a>
           {% endif %} 

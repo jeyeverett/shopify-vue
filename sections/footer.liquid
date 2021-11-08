@@ -1,0 +1,66 @@
+<footer class="flex justify-between border-t-2 pt-3 mt-4">
+  <h3 class="text-md font-medium text-gray-400">This is a random message!</h3>
+  <div class="flex justify-around w-1/2">
+    <ul>
+      {% for link in linklists.main-footer.links %}
+      <li class="text-gray-400 font-medium my-2 hover:text-gray-700 transition-colors">
+        {% assign child_list_handle = link.title | handleize %} {% if
+        linklists[child_list_handle].links != blank %}
+        <a href="{{ link.url }}">
+          {{ link.title }}
+        </a>
+        [{% for childlink in linklists[child_list_handle].links %}
+        <a href="{{ childlink.url }}">
+          {{ childlink.title | escape }}
+        </a>
+        {% endfor %}] {% else %}
+        <a href="{{ link.url }}">
+          {{ link.title }}
+        </a>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+    <ul>
+      {% for block in section.blocks %}
+        <li class="text-gray-400 font-medium my-2 hover:text-gray-700 transition-colors">
+          <a href="{{ block.settings.link }}">
+            {{ block.settings.title }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Footer Description",
+      "default": "Footer description"
+    } 
+  ],
+  "blocks": [
+    {
+      "type": "social_link",
+      "name": "Social",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Social Title"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Social Link"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
