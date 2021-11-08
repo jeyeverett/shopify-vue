@@ -26,15 +26,13 @@
 
 <header class="z-10 fixed inset-0 py-5 mx-10 border-b border-gray-500 bg-white select-none" style="height: min-content" id="header">
     <nav class="flex justify-between items-center">
-        <div id="menu-modal">
-            {% unless template == 'product' %}
-              <button>
-                  <span>Menu</span>
-              </button>
-            {% else %}
-              <a href="javascript:history.back()">Back</a>
-            {% endunless %}
-        </div>
+        {% unless template == 'product' %}
+          <button class="relative menu-button" @click="toggleMenu">
+            Menu
+          </button>
+        {% else %}
+          <a href="javascript:history.back()">Back</a>
+        {% endunless %}
     
         <a href="/">{{ shop.name }}</a>
 
@@ -45,11 +43,18 @@
     </nav>
 
     <transition name="cart">
-      <section id="cart-modal" v-show="isCartVisible" class="absolute top-20 right-0 w-96 z-20 bg-white border border-gray-700 px-6 py-3 shadow-2xl" style="height: 88.5vh;">
+      <section v-show="isCartVisible" class="absolute top-20 right-0 w-96 z-20 bg-white border border-gray-700 px-6 py-3 shadow-2xl" style="height: 88.5vh;">
         <h1 class=" text-md font-semibold my-2">Cart</h1>
         {% render 'cart-modal' %}
       </section>
     </transition>
+
+    <transition name="menu">
+      <nav v-show="isMenuVisible" class="absolute top-20 left-0 w-52 z-20 bg-white border border-gray-700 px-6 py-3 shadow-2xl" style="height: 88.5vh;">
+        {% render 'menu-modal' %}
+      </nav>
+    </transition>
+
     <div class="w-full h-full fixed top-0 left-0 z-0" v-show="isCartVisible || isMenuVisible" @click="closeAllMenu" style="z-index: -10;"></div>
 </header>
 
@@ -82,6 +87,10 @@
       methods: {
         toggleCart() {
           store.toggleCart();
+        },
+        toggleMenu() {
+          console.log('menu toggled');
+          store.toggleMenu();
         },
         async incItem(item) {
           const data = {
@@ -135,6 +144,8 @@
 </script>
 
 <style scoped>
+  /* -------CART------- */
+
   .cart-icon {
     stroke: rgba(55, 65, 81, .9);
   }
@@ -162,6 +173,23 @@
       box-shadow: inset 0 0 8px rgba(55, 65, 81, .25);
       transform: translate(-46%, -56%) scale(1);
       opacity: 1;
+    }
+  }
+
+  .cart-enter-active {
+    animation: cart-modal-animate 0.3s ease-in forwards;
+  }
+
+  .cart-leave-active {
+    animation: cart-modal-animate 0.3s ease-out reverse;
+  }
+
+  @keyframes cart-modal-animate {
+    from {
+      right: -24rem
+    }
+    to {
+      right: 0;
     }
   }
 
@@ -201,20 +229,48 @@
     }
   }
 
-  .cart-enter-active {
-    animation: cart-modal-animate 0.3s ease-in forwards;
+  /* -------MENU------- */
+
+  .menu-button::after {
+    position: absolute;
+    top: 56%;
+    left: 47%;
+    transform: translate(-46%, -56%) scale(0);
+    opacity: 0;
   }
 
-  .cart-leave-active {
-    animation: cart-modal-animate 0.3s ease-out reverse;
+  .menu-button:hover::after {
+    content: "";
+    height: 2rem;
+    width: 5rem;
+    border-radius: 2rem;
+    display: inline-block;
+    animation: menu-hover .2s forwards;
   }
 
-  @keyframes cart-modal-animate {
+  @keyframes menu-hover {
+    100% {
+      background-color: rgba(55, 65, 81, .1);
+      box-shadow: inset 0 0 8px rgba(55, 65, 81, .25);
+      transform: translate(-46%, -56%) scale(1);
+      opacity: 1;
+    }
+  }
+
+  .menu-enter-active {
+    animation: menu-modal-animate 0.3s ease-in forwards;
+  }
+
+  .menu-leave-active {
+    animation: menu-modal-animate 0.3s ease-out reverse;
+  }
+
+  @keyframes menu-modal-animate {
     from {
-      right: -384px;
+      left: -13rem;
     }
     to {
-      right: 0;
+      left: 0;
     }
   }
 
