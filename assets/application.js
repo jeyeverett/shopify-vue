@@ -14,7 +14,7 @@ const store = Vue.reactive({
     try {
       const response = await fetch("/cart.js");
       const cartData = await response.json();
-      this.state.cart.items.unshift(cartData);
+      this.state.cart.items = cartData;
     } catch (err) {
       console.log(err);
     }

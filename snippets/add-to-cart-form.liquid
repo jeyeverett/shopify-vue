@@ -80,6 +80,7 @@
               },
               body: JSON.stringify(data),
             });
+            store.getCart(); //refresh the cart (store.getCart() is defined in application.js)
           } catch (err) {
             console.log(err);
           }
