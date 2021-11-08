@@ -80,7 +80,9 @@
               },
               body: JSON.stringify(data),
             });
-            store.getCart(); //refresh the cart (store.getCart() is defined in application.js)
+            //refresh the cart (store.getCart() is defined in application.js) then open it
+            await store.getCart();
+            store.toggleCart();
           } catch (err) {
             console.log(err);
           }

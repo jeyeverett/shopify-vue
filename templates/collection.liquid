@@ -1,26 +1,32 @@
-<h1 class="text-2xl font-semibold">
-  {{ collection.title }}
-</h1>
 <section
   class="
     mx-auto
-    mt-5
     mb-10
+    mt-5
     sm:mt-10
-    px-12
-    sm:px-32
-    md:px-24
-    lg:px-32
-    xl:px-40
-    grid grid-cols-1
-    md:grid-cols-2
-    lg:grid-cols-3
-    gap-5
-    sm:gap-6
-    md:gap-7
-    lg:gap-8
+    px-6
+    sm:px-28
+    md:px-20
+    lg:px-28
+    xl:px-36
+    pt-10
   "
 >
-  {% for product in collection.products %} {% render 'product-card', product:
-  product %} {% endfor %}
+  <h1 class="text-3xl font-semibold mb-4">
+    {{ collection.title }}
+  </h1>
+  <div
+    class="
+      grid grid-cols-1
+      md:grid-cols-2
+      lg:grid-cols-3
+      gap-5
+      sm:gap-6
+      md:gap-7
+      lg:gap-8
+    "
+  >
+    {% for product in collection.products %} {% render 'product-card', product:
+    product %} {% endfor %}
+  </div>
 </section>

@@ -24,7 +24,7 @@
 {% endcomment %}
 
 
-<header class="z-10 w-fill fixed inset-0 py-5 px-10 border-b border-gray-500 bg-white select-none" style="height: min-content" id="header">
+<header class="z-10 fixed inset-0 py-5 mx-10 border-b border-gray-500 bg-white select-none" style="height: min-content" id="header">
     <nav class="flex justify-between items-center">
         <div id="menu-modal">
             {% unless template == 'product' %}
@@ -45,7 +45,7 @@
     </nav>
 
     <transition name="cart">
-      <section id="cart-modal" v-show="isCartVisible" class="absolute top-20 right-0 h-screen w-96 z-20 bg-white border border-gray-700 px-6 py-3 shadow-2xl">
+      <section id="cart-modal" v-show="isCartVisible" class="absolute top-20 right-0 w-96 z-20 bg-white border border-gray-700 px-6 py-3 shadow-2xl" style="height: 88.5vh;">
         <h1 class=" text-md font-semibold my-2">Cart</h1>
         {% render 'cart-modal' %}
       </section>

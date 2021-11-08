@@ -1,6 +1,10 @@
-<div class="hero-image section">
-  <img src="{{ section.settings.image | img_url: 'master' }}" alt="" />
-</div>
+<section class="py-1 sm:py-4">
+  <img
+    src="{{ section.settings.image | img_url: 'master' }}"
+    alt=""
+    class="w-full"
+  />
+</section>
 
 <!-- prettier-ignore -->
 {% schema %} 

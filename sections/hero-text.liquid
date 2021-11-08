@@ -1,0 +1,34 @@
+<section class="py-1 sm:py-4">
+  <h2 class="text-2xl font-semibold text-center">
+    {{ section.settings.title }}
+  </h2>
+  <div class="text-lg font-medium text-center mt-2 mx-auto w-1/2">
+    {{ section.settings.text }}
+  </div>
+</section>
+
+{% schema %} 
+{ 
+    "name": "Hero Text", 
+    "settings": [ 
+        { 
+            "type": "text",
+            "id": "title", 
+            "label": "Heading",
+            "default": "Section Heading"
+        },
+        { 
+            "type": "richtext",
+            "id": "text", 
+            "label": "Description",
+            "default": "<p>Write your description here</p>"
+        } 
+    ],
+    "presets": [
+        {
+            "name": "Hero Text",
+            "category": "Text"
+        }
+    ]
+} 
+{% endschema %}
