@@ -1,9 +1,6 @@
-<li
-  @click="toggleOptionsList(option)"
-  :class="['text-center relative', { 'bg-gray-200': option.visible }]"
->
-  <span class="absolute left-0">${option.name}</span
-  >${form.selected[option.name]}
+<li @click="toggleOptionsList(option)" class="text-center relative">
+  <span class="absolute left-0">${option.name}:</span
+  ><span class="font-light">${form.selected[option.name]}</span>
 </li>
 <ul v-show="option.visible" class="absolute left-0 bottom-full w-full">
   <li
@@ -18,6 +15,8 @@
       bg-white
       hover:bg-gray-200
       cursor-pointer
+      box-border
+      transition-colors
     "
   >
     ${value}

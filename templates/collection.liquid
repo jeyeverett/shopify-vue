@@ -9,7 +9,9 @@
     sm:mt-10
     px-12
     sm:px-32
-    md:px-40
+    md:px-24
+    lg:px-32
+    xl:px-40
     grid grid-cols-1
     md:grid-cols-2
     lg:grid-cols-3
@@ -19,7 +21,6 @@
     lg:gap-8
   "
 >
-  {% for product in collection.products %} 
-    {% render 'product-card', product: product  %} 
-  {% endfor %}
+  {% for product in collection.products %} {% render 'product-card', product:
+  product %} {% endfor %}
 </section>

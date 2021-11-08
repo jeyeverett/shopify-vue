@@ -1,49 +1,103 @@
-<article>
-  <a href="{{ product.url | within: collection }}">
-    <div class="relative swiper swiper-{{- product.id -}}">
-      <div class="swiper-wrapper">
-        {% for image in product.images %}
-        <div class="swiper-slide">
-          <img
-            src="{{ image.src | img_url: 'master' }}"
-            alt="{{ image.alt | escape }}"
-            class="swiper-image-{{- image.id -}}"
-          />
+<article
+  class="
+    border border-transparent
+    hover:border-gray-300 hover:shadow
+    transition-all
+  "
+>
+  <figure>
+    <a href="{{ product.url | within: collection }}" class="select-none">
+      <div class="relative swiper swiper-{{- product.id -}}">
+        <div class="swiper-wrapper">
+          {% for image in product.images %}
+          <div class="swiper-slide">
+            <img
+              src="{{ image.src | img_url: '590x590' }}"
+              alt="{{ image.alt | escape }}"
+              class="swiper-image-{{- image.id -}}"
+            />
+          </div>
+          {% endfor %}
         </div>
-        {% endfor %}
+        <span
+          class="absolute top-0 right-0 w-1/4 h-full mt-0 outline-none shadow-none border-transparent text-gray-400 hover:text-gray-700 transition-colors swiper-button-next swiper-button-next-{{- product.id -}}"
+        ></span>
+        <span
+          class="absolute top-0 left-0 w-1/4 h-full mt-0 outline-none shadow-none border-transparent text-gray-400 hover:text-gray-700 transition-colors swiper-button-prev swiper-button-prev-{{- product.id -}}"
+        ></span>
       </div>
-      <span
-        class="absolute top-0 right-0 w-1/4 h-full mt-0 outline-none shadow-none border-transparent text-gray-400 hover:text-gray-700 transition-colors swiper-button-next swiper-button-next-{{- product.id -}}"
-      ></span>
-      <span
-        class="absolute top-0 left-0 w-1/4 h-full mt-0 outline-none shadow-none border-transparent text-gray-400 hover:text-gray-700 transition-colors swiper-button-prev swiper-button-prev-{{- product.id -}}"
-      ></span>
-    </div>
-  </a>
+    </a>
+  </figure>
 
-  <a href="{{ product.url | within: collection }}">
-    <h3 class="font-medium">{{ product.title | upcase }}</h3>
-  </a>
-  <p class="my-2 font-medium">{{ product.price | money }}</p>
-  <div class="relative">
-    <details>
-      <summary class="list-none font-light hover:text-gray-700 transition-all cursor-pointer w-1/4">Sizes</summary>
-      <p class="font-light text-sm pl-3">
-        {% for size_option in product.options_by_name['Size'].values %}
-        {{ size_option }}{% unless forloop.last %} / {% endunless %} {% endfor %}
-      </p>
-    </details>
-    <details>
-      <summary class="list-none font-light hover:text-gray-700 transition-all cursor-pointer w-1/4">Colors</summary>
-      <p class="font-light text-sm pl-3">
-        {% for color_option in product.options_by_name['Color'].values %}
-        {{ color_option }}{% unless forloop.last %} / {% endunless %} {% endfor %}
-      </p>
-    </details>
-    <button class="px-4 py-2 border border-gray-700 bg-transparent hover:bg-gray-700 hover:text-white transition-all absolute bottom-0 right-0 z-10">
-      <span>Add to cart</span>
-    </button>
-  </div>
+  <article class="p-2 flex flex-col justify-between h-32 sm:h-44">
+    <span>
+      <h3 class="font-medium">
+        <a href="{{ product.url | within: collection | truncate: 45 }}">
+          {{ product.title | upcase }}
+        </a>
+      </h3>
+
+      <p class="my-2 font-medium">{{ product.price | money }}</p>
+    </span>
+
+    <div class="relative">
+      <details>
+        <summary
+          class="
+            list-none
+            font-light
+            hover:text-gray-700
+            transition-all
+            cursor-pointer
+            w-1/4
+          "
+        >
+          Sizes
+        </summary>
+        <p class="font-light text-sm pl-3">
+          {% for size_option in product.options_by_name['Size'].values %}
+          {{ size_option }}{% unless forloop.last %} / {% endunless %} {% endfor
+          %}
+        </p>
+      </details>
+      <details>
+        <summary
+          class="
+            list-none
+            font-light
+            hover:text-gray-700
+            transition-all
+            cursor-pointer
+            w-1/4
+          "
+        >
+          Colors
+        </summary>
+        <p class="font-light text-sm pl-3">
+          {% for color_option in product.options_by_name['Color'].values %}
+          {{ color_option }}{% unless forloop.last %} / {% endunless %} {%
+          endfor %}
+        </p>
+      </details>
+      <button
+        class="
+          px-4
+          py-2
+          border border-gray-700
+          bg-gray-700
+          text-white
+          hover:bg-transparent hover:text-gray-700
+          transition-all
+          absolute
+          bottom-0
+          right-0
+          z-10
+        "
+      >
+        <span class="text-sm">Add to cart</span>
+      </button>
+    </div>
+  </article>
 </article>
 
 <script>
