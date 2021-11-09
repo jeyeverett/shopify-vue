@@ -25,6 +25,8 @@
     <ul
       v-for="(option, optionIndex) in form.options"
       :key="variantId + '-' + option.name"
+      style="opacity: 0"
+      :style="{ opacity: isLoading ? 0 : 1 }"
     >
       {% render 'product-card-select-option' %}
     </ul>

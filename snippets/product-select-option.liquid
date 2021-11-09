@@ -1,4 +1,9 @@
-<li @click="toggleOptionsList(option)" class="text-center relative">
+<li
+  @click="toggleOptionsList(option)"
+  class="text-center relative"
+  style="opacity: 0"
+  :style="{ opacity: isLoading ? 0 : 1 }"
+>
   <span class="absolute left-0">${option.name}:</span
   ><span class="font-light">${form.selected[option.name]}</span>
 </li>
