@@ -1,29 +1,40 @@
 <form id="product-form">
-  <ul
-    v-for="(option, optionIndex) in form.options"
-    :key="option.name"
-    :class="['my-2 w-full px-4 py-2 border border-gray-700 bg-white hover:bg-gray-200 transition-colors cursor-pointer relative', { 'bg-gray-200': option.visible }]"
-  >
-    {% render 'product-select-option' %}
-  </ul>
-  <button
-    @click="addToCart"
-    name="add"
-    id="add-to-cart-button"
-    class="
-      w-full
-      px-4
-      py-2
-      text-white
-      bg-gray-700
-      border border-gray-700
-      hover:bg-white hover:text-gray-700
-      transition-colors
-    "
-  >
-    Add to cart
-  </button>
+  <div v-if="isLoading" class="flex justify-center items-center h-40">
+    <div class="lds-ring">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+  <div v-else>
+    <ul
+      v-for="(option, optionIndex) in form.options"
+      :key="option.name"
+      :class="['my-2 w-full px-4 py-2 border border-gray-700 bg-white hover:bg-gray-200 transition-colors cursor-pointer relative', { 'bg-gray-200': option.visible }]"
+    >
+      {% render 'product-select-option' %}
+    </ul>
+    <button
+      @click="addToCart"
+      name="add"
+      id="add-to-cart-button"
+      class="
+        w-full
+        px-4
+        py-2
+        text-white
+        bg-gray-700
+        border border-gray-700
+        hover:bg-white hover:text-gray-700
+        transition-colors
+      "
+    >
+      Add to cart
+    </button>
+  </div>
 </form>
+
 <script>
   if (document.querySelector("#product-form")) {
     const productForm = Vue.createApp({
@@ -35,9 +46,11 @@
             options: [],
             selected: {},
           },
+          isLoading: false,
         };
       },
       created() {
+        this.isLoading = true;
         store.getProductData("{{ product.handle }}").then((data) => {
           //map option to variant id
           data.variants.map(
@@ -52,6 +65,7 @@
             // sets the default selected option for each option
             this.form.selected[option.name] = option.values[0];
           });
+          this.isLoading = false;
         });
       },
       computed: {
@@ -82,6 +96,44 @@
           option.visible = false;
         },
       },
-    }).mount("#add-to-cart-form");
+    }).mount("#product-form");
   }
 </script>
+
+<style>
+  .lds-ring {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+  }
+  .lds-ring div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border: 8px solid darkgrey;
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: darkgrey transparent transparent transparent;
+  }
+  .lds-ring div:nth-child(1) {
+    animation-delay: -0.45s;
+  }
+  .lds-ring div:nth-child(2) {
+    animation-delay: -0.3s;
+  }
+  .lds-ring div:nth-child(3) {
+    animation-delay: -0.15s;
+  }
+  @keyframes lds-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+</style>
