@@ -1,0 +1,32 @@
+<li
+  @click="toggleOptionsList(option)"
+  class="relative cursor-pointer select-none"
+>
+  ${option.name}:<span class="font-light ml-2 text-sm"
+    >${form.selected[option.name]}</span
+  >
+</li>
+<ul
+  v-show="option.visible"
+  class="px-2 py-1 z-10 border border-gray-400 bg-white absolute left-3"
+  style="max-width: 90%; min-width: 40%"
+>
+  <li
+    v-for="(value, index) in option.values"
+    :key="variantId + '-' + value"
+    class="text-sm"
+  >
+    <span
+      @click="updateSelected(option, value)"
+      :class="['cursor-pointer hover:text-gray-400 transition-all', { 'selected-option': isSelected(option, value)}]"
+    >
+      ${value}
+    </span>
+  </li>
+  <div
+    class="w-full h-full fixed top-0 left-0 z-0"
+    v-show="option.visible"
+    @click="closeAllOptions"
+    style="z-index: -10"
+  ></div>
+</ul>

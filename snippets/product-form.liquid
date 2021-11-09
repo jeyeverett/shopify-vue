@@ -1,4 +1,4 @@
-<form id="add-to-cart-form">
+<form id="product-form">
   <ul
     v-for="(option, optionIndex) in form.options"
     :key="option.name"
@@ -25,7 +25,7 @@
   </button>
 </form>
 <script>
-  if (document.querySelector("#add-to-cart-form")) {
+  if (document.querySelector("#product-form")) {
     const productForm = Vue.createApp({
       delimiters: ["${", "}"],
       data() {
@@ -38,7 +38,7 @@
         };
       },
       created() {
-        this.getProductData().then((data) => {
+        store.getProductData("{{ product.handle }}").then((data) => {
           //map option to variant id
           data.variants.map(
             (variant) => (this.variantsMap[variant.title] = variant.id)
@@ -72,28 +72,7 @@
             quantity: 1,
           };
 
-          try {
-            const response = await fetch("/cart/add.js", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(data),
-            });
-            //refresh the cart (store.getCart() is defined in application.js) then open it
-            await store.getCart();
-            store.toggleCart();
-          } catch (err) {
-            console.log(err);
-          }
-        },
-        async getProductData() {
-          try {
-            const response = await fetch("/products/{{ product.handle }}.js");
-            return await response.json();
-          } catch (err) {
-            console.log(err);
-          }
+          store.addToCart(data);
         },
         toggleOptionsList(option) {
           option.visible = !option.visible;

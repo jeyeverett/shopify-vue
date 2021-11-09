@@ -12,13 +12,15 @@
       <a :href="item.url" v-if="item.image">
         <img class="h-32" :src="item.image" :alt="item.title" />
       </a>
-      <div class="w-1/2">
-        <h3 class="text-sm font-semibold">
-          <a :href="item.url" class="">${ item.product_title }</a>
-        </h3>
-        <p class="text-sm font-light">${ item.variant_title }</p>
-        <div class="text-xs font-semibold text-right">
-          ${ toPrice(item.price) }
+      <div class="w-1/2 h-full flex flex-col justify-between">
+        <div>
+          <h3 class="text-sm font-semibold">
+            <a :href="item.url" class="">${ item.product_title }</a>
+          </h3>
+          <p class="text-sm font-light">${ item.variant_title }</p>
+          <p class="text-xs font-semibold text-right">
+            ${ toPrice(item.price) }
+          </p>
         </div>
         <span
           class="
