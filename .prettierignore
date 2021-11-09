@@ -1,6 +1,7 @@
 /snippets/header.liquid
 /snippets/menu-modal.liquid
 /sections/hero-text.liquid
+/sections/shopping-cart.liquid
 /sections/image-with-text.liquid
 /sections/logo-list.liquid
 /sections/footer.liquid
