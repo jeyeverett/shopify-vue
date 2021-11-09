@@ -14,12 +14,10 @@
   <li
     v-for="(value, index) in option.values"
     :key="variantId + '-' + value"
-    class="text-sm"
+    class="text-sm px-1 hover:bg-gray-200 transition-all cursor-pointer"
+    @click="updateSelected(option, value)"
   >
-    <span
-      @click="updateSelected(option, value)"
-      :class="['cursor-pointer hover:text-gray-400 transition-all', { 'selected-option': isSelected(option, value)}]"
-    >
+    <span :class="{ 'selected-option': isSelected(option, value)}">
       ${value}
     </span>
   </li>
