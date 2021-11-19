@@ -1,9 +1,9 @@
-<footer class="flex justify-between border-t-2 pt-3 mt-4">
+<footer class="flex flex-wrap justify-between border-t-2 pt-3 mt-4">
   <h3 class="text-md font-medium text-gray-400">This is a random message!</h3>
-  <div class="flex justify-around w-1/2">
+  <div class="flex flex-wrap justify-around w-1/2">
     <ul>
       {% for link in linklists.main-footer.links %}
-      <li class="text-gray-400 font-medium my-2 hover:text-gray-700 transition-colors">
+      <li class="text-gray-400 font-medium my-2 hover:text-gray-700 transition-colors w-40">
         {% assign child_list_handle = link.title | handleize %} {% if
         linklists[child_list_handle].links != blank %}
         <a href="{{ link.url }}">
@@ -23,7 +23,7 @@
     </ul>
     <ul>
       {% for block in section.blocks %}
-        <li class="text-gray-400 font-medium my-2 hover:text-gray-700 transition-colors">
+        <li class="text-gray-400 font-medium my-2 hover:text-gray-700 transition-colors w-40">
           <a href="{{ block.settings.link }}">
             {{ block.settings.title }}
           </a>

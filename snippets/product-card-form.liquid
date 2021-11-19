@@ -28,7 +28,7 @@
       style="opacity: 0"
       :style="{ opacity: isLoading ? 0 : 1 }"
     >
-      {% render 'product-card-select-option' %}
+      {% render 'product-card-option-select' %}
     </ul>
     <button
       class="
@@ -97,12 +97,12 @@
         async addToCart(event) {
           event.preventDefault();
 
-          const data = {
+          const item = {
             id: this.variantId,
             quantity: 1,
           };
 
-          store.addToCart(data);
+          store.addToCart(item);
         },
         toggleOptionsList(option) {
           option.visible = !option.visible;
@@ -127,6 +127,7 @@
     text-decoration: line-through;
   }
 
+  /* Spinner */
   .lds-ring {
     display: inline-block;
     position: relative;

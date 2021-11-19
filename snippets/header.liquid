@@ -24,7 +24,7 @@
 {% endcomment %}
 
 
-<header class="z-10 fixed inset-0 py-5 mx-10 border-b border-gray-500 bg-white select-none" style="height: min-content" id="header">
+<header class="z-10 fixed inset-0 py-5 mx-10 border-b border-gray-400 bg-white select-none" style="height: min-content" id="header">
     <nav class="flex justify-between items-center">
         {% unless template == 'product' %}
           <button class="relative menu-button" @click="toggleMenu">
@@ -43,14 +43,14 @@
     </nav>
 
     <transition name="cart">
-      <section v-show="isCartVisible" class="absolute top-20 right-0 w-96 z-20 bg-white border border-gray-700 px-6 py-3 shadow-2xl" style="height: 88.5vh;">
+      <section v-show="isCartVisible" class="absolute top-20 right-0 w-96 z-20 bg-white border border-gray-400 px-6 py-3 shadow-2xl" style="height: 88.5vh;">
         <h1 class=" text-md font-semibold my-2">Cart</h1>
         {% render 'cart-modal' %}
       </section>
     </transition>
 
     <transition name="menu">
-      <nav v-show="isMenuVisible" class="absolute top-20 left-0 w-52 z-20 bg-white border border-gray-700 px-6 py-3 shadow-2xl" style="height: 88.5vh;">
+      <nav v-show="isMenuVisible" class="absolute top-20 left-0 w-52 z-20 bg-white border border-gray-400 px-6 py-3 shadow-2xl" style="height: 88.5vh;">
         {% render 'menu-modal' %}
       </nav>
     </transition>
@@ -62,11 +62,6 @@
   if (document.querySelector('#header')) {
     const header = Vue.createApp({
       delimiters: ["${", "}"],
-      data() {
-        return {
-
-        }
-      },
       created() {
         store.getCart();
       },

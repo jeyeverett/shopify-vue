@@ -15,7 +15,7 @@ product.featured_image %}
   "
 >
   <figure
-    class="w-3/4 md:w-full lg:w-3/4 relative select-none swiper swiper-{{- product.id -}}"
+    class="w-full sm:w-3/4 md:w-full xl:w-3/4 relative select-none swiper swiper-{{- product.id -}}"
   >
     <div class="swiper-wrapper">
       {% for image in product.images %}
@@ -41,7 +41,8 @@ product.featured_image %}
       mx-auto
       mt-2
       sm:mt-0
-      w-3/4
+      w-full
+      sm:w-3/4
       md:w-5/6
       lg:w-3/4
       flex flex-col

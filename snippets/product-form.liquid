@@ -13,7 +13,7 @@
       :key="option.name"
       :class="['my-2 w-full px-4 py-2 border border-gray-700 bg-white hover:bg-gray-200 transition-colors cursor-pointer relative', { 'bg-gray-200': option.visible }]"
     >
-      {% render 'product-select-option' %}
+      {% render 'product-option-select' %}
     </ul>
     <button
       @click="addToCart"
